@@ -4,7 +4,7 @@ declare(strict_types=1);
 header('Content-Type: application/json');
 
 const RECAPTCHA_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY';
-const MAIL_TO = 'travelcia.in@gmail.com';
+const MAIL_TO = 'praviks.123@gmail.com';
 const MAIL_SUBJECT = 'New Travelcia Contact Enquiry';
 
 function respond(bool $success, string $message, int $status = 200): void
