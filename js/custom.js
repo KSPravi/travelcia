@@ -516,6 +516,8 @@ $(window).on("load resize scroll", function () {
 // Fancybox Config
 $('[data-fancybox="gallery"]').fancybox({
   buttons: ["slideShow", "thumbs", "zoom", "fullScreen", "share", "close"],
+  transitionEffect: "slide",
+  animationEffect: "zoom-in-out",
   loop: false,
   protect: true,
 });

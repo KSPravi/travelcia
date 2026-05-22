@@ -255,6 +255,15 @@ button {
   }
 }
 .fancybox-slide--image {
+  .fancybox-content {
+    border-radius: 24px;
+    overflow: hidden;
+  }
+
+  .fancybox-image {
+    border-radius: 24px;
+  }
+
   @media (width<=575px) {
     padding: 44px 20px;
   }
@@ -720,12 +729,9 @@ header {
   height: calc(100vh - 96px - 2rem);
   @media (width<=575px) {
     margin-top: 50px;
-    height: calc(100vh - 20px - 2rem);
+    height: 350px;
   }
-  @media (width<=420px) {
-    margin-top: 50px;
-    height: calc(100vh - 50px);
-  }
+
   .inner-banner {
     padding: 2rem;
     padding-top: 0;
@@ -1031,6 +1037,10 @@ header {
     small {
       margin-bottom: 20px;
       font-size: 20px;
+      @media (width<=575px) {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
     }
     h4 {
       font-weight: $medium;
@@ -3210,8 +3220,9 @@ h5.under {
         left: 20px;
         right: 20px;
         width: auto;
-        align-items: flex-start;
-        padding-top: 50px;
+        align-items: flex-end;
+        padding-top: 30px;
+        padding-bottom: 50px;
       }
       .row {
         .caption {
@@ -3375,6 +3386,54 @@ h5.under {
           figure {
             img {
               transform: scale(1.1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.service-list {
+  .row {
+    .package-box {
+      .inner-pack-box {
+        .caption {
+          .head-top {
+            p {
+              color: $secondary-color;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.gallery-page {
+  .package-list {
+    .row {
+      row-gap: 24px;
+      margin-bottom: 0;
+      @media (width<=575px) {
+        margin-left: -6px;
+        margin-right: -6px;
+        row-gap: 12px;
+      }
+      .package-box {
+        @media (width<=575px) {
+          padding: 0 6px;
+        }
+        .inner-pack-box {
+          figure {
+            aspect-ratio: 4 / 4;
+
+            a {
+              display: block;
+              height: 100%;
+            }
+
+            img {
+              height: 100%;
+              object-fit: cover;
             }
           }
         }
@@ -3794,10 +3853,6 @@ a {
 }
 
 .contact-form {
-  .form-group {
-    margin-bottom: 22px;
-  }
-
   label {
     color: #fff;
     font-weight: $semibold;
@@ -3811,11 +3866,25 @@ a {
     color: $secondary-color;
     min-height: 52px;
     padding: 12px 16px;
-
+    @media (width<575px) {
+      min-height: 45px;
+      padding: 10px 12px;
+    }
     &:focus {
       background-color: #fff;
       border-color: $light_yellow;
     }
+
+    &.is-invalid {
+      border-color: #ffb3b3;
+    }
+  }
+
+  .field-error {
+    color: #ffdddd;
+    display: block;
+    font-size: 13px;
+    margin-top: 6px;
   }
 
   textarea {
@@ -3848,6 +3917,20 @@ a {
         background-color: $territory-color;
       }
     }
+  }
+}
+
+.form-message {
+  color: #fff;
+  font-size: 15px;
+  margin-top: 18px;
+
+  &.success {
+    color: #d9ffd9;
+  }
+
+  &.error {
+    color: #ffdddd;
   }
 }
 
@@ -3886,13 +3969,15 @@ a {
   }
 }
 
+@media (width <= 1199px) {
+  .contact-card-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (width <= 991px) {
   .contact-info {
     padding: 0 12px;
-  }
-
-  .contact-card-list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .contact-form-image {
@@ -3908,12 +3993,22 @@ a {
 
 @media (width <= 575px) {
   .contact-card-list {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .contact-card {
+    padding: 15px 10px;
+
+    i {
+      margin-bottom: 10px;
+    }
+
+    span {
+      display: none;
+    }
+
     strong {
-      font-size: 17px;
+      font-size: 13px;
     }
   }
 
