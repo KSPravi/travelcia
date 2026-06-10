@@ -4,7 +4,7 @@ declare(strict_types=1);
 header('Content-Type: application/json');
 
 const RECAPTCHA_SECRET_KEY = '6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1';
-const MAIL_TO = 'praviks.123@gmail.com';
+const MAIL_TO = 'travelcia.in@gmail.com';
 const MAIL_SUBJECT = 'New Travelcia Contact Enquiry';
 
 function respond(bool $success, string $message, int $status = 200): void
@@ -52,26 +52,43 @@ if ($recaptchaToken === '') {
     respond(false, 'Please complete the reCAPTCHA verification.', 422);
 }
 
-if (RECAPTCHA_SECRET_KEY === '6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1') {
+if (RECAPTCHA_SECRET_KEY === '') {
     respond(false, 'reCAPTCHA secret key is not configured.', 500);
 }
 
-$verifyResponse = file_get_contents(
-    'https://www.google.com/recaptcha/api/siteverify',
-    false,
-    stream_context_create([
-        'http' => [
-            'method' => 'POST',
-            'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
-            'content' => http_build_query([
-                'secret' => 6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1,
-                'response' => $recaptchaToken,
-                'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
-            ]),
-            'timeout' => 10,
-        ],
-    ])
-);
+$verifyPayload = http_build_query([
+    'secret' => RECAPTCHA_SECRET_KEY,
+    'response' => $recaptchaToken,
+    'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
+]);
+
+$verifyResponse = false;
+
+if (function_exists('curl_init')) {
+    $ch = curl_init('https://www.google.com/recaptcha/api/siteverify');
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => $verifyPayload,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 10,
+        CURLOPT_HTTPHEADER => ['Content-Type: application/x-www-form-urlencoded'],
+    ]);
+    $verifyResponse = curl_exec($ch);
+    curl_close($ch);
+} else {
+    $verifyResponse = file_get_contents(
+        'https://www.google.com/recaptcha/api/siteverify',
+        false,
+        stream_context_create([
+            'http' => [
+                'method' => 'POST',
+                'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
+                'content' => $verifyPayload,
+                'timeout' => 10,
+            ],
+        ])
+    );
+}
 
 if ($verifyResponse === false) {
     respond(false, 'Unable to verify reCAPTCHA. Please try again.', 500);
