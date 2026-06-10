@@ -165,7 +165,20 @@
         });
       })
       .then(function (response) {
-        return response.json().then(function (data) {
+        return response.text().then(function (text) {
+          var data = {};
+          var contentType = response.headers.get("content-type") || "";
+
+          if (contentType.indexOf("application/json") === -1) {
+            throw new Error("The form handler returned HTML instead of JSON. Please check that send-contact.php is uploaded and PHP is enabled on the server.");
+          }
+
+          try {
+            data = JSON.parse(text);
+          } catch (error) {
+            throw new Error("The form handler returned invalid JSON. Please check send-contact.php for server errors.");
+          }
+
           if (!response.ok || !data.success) {
             throw new Error(data.message || "Something went wrong. Please try again.");
           }
