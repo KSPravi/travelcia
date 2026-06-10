@@ -4,6 +4,8 @@ declare(strict_types=1);
 header('Content-Type: application/json');
 
 const RECAPTCHA_SECRET_KEY = '6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1';
+const RECAPTCHA_ACTION = 'contact';
+const RECAPTCHA_MIN_SCORE = 0.5;
 const MAIL_TO = 'travelcia.in@gmail.com';
 const MAIL_SUBJECT = 'New Travelcia Contact Enquiry';
 
@@ -97,6 +99,14 @@ if ($verifyResponse === false) {
 $verifyData = json_decode($verifyResponse, true);
 
 if (empty($verifyData['success'])) {
+    respond(false, 'reCAPTCHA verification failed. Please try again.', 422);
+}
+
+if (($verifyData['action'] ?? '') !== RECAPTCHA_ACTION) {
+    respond(false, 'reCAPTCHA verification failed. Please try again.', 422);
+}
+
+if ((float)($verifyData['score'] ?? 0) < RECAPTCHA_MIN_SCORE) {
     respond(false, 'reCAPTCHA verification failed. Please try again.', 422);
 }
 

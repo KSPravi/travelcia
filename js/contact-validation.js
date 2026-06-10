@@ -8,7 +8,9 @@
   var submitButton = form.querySelector('button[type="submit"]');
   var submitText = submitButton ? submitButton.querySelector("span") : null;
   var messageBox = form.querySelector(".form-message");
+  var recaptchaField = form.querySelector('[name="g-recaptcha-response"]');
   var defaultButtonText = submitText ? submitText.textContent : "Send Enquiry";
+  var recaptchaSiteKey = "6LcktRctAAAAAPZEzJFoy9k_7PlzTR6Vk1eZwJqi";
 
   var rules = {
     name: {
@@ -96,14 +98,29 @@
       }
     });
 
-    if (typeof grecaptcha !== "undefined" && grecaptcha.getResponse().length === 0) {
-      isValid = false;
-      setMessage("Please complete the reCAPTCHA verification.", "error");
-    } else if (isValid) {
+    if (isValid) {
       setMessage("", "");
     }
 
     return isValid;
+  }
+
+  function getRecaptchaToken() {
+    return new Promise(function (resolve, reject) {
+      if (typeof grecaptcha === "undefined") {
+        reject(new Error("reCAPTCHA could not be loaded. Please refresh and try again."));
+        return;
+      }
+
+      grecaptcha.ready(function () {
+        grecaptcha
+          .execute(recaptchaSiteKey, { action: "contact" })
+          .then(resolve)
+          .catch(function () {
+            reject(new Error("Unable to verify reCAPTCHA. Please try again."));
+          });
+      });
+    });
   }
 
   Object.keys(rules).forEach(function (name) {
@@ -133,13 +150,20 @@
       submitText.textContent = "Sending...";
     }
 
-    fetch(form.action, {
-      method: "POST",
-      body: new FormData(form),
-      headers: {
-        Accept: "application/json",
-      },
-    })
+    getRecaptchaToken()
+      .then(function (token) {
+        if (recaptchaField) {
+          recaptchaField.value = token;
+        }
+
+        return fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: {
+            Accept: "application/json",
+          },
+        });
+      })
       .then(function (response) {
         return response.json().then(function (data) {
           if (!response.ok || !data.success) {
@@ -152,17 +176,9 @@
       .then(function (data) {
         form.reset();
         setMessage(data.message || "Thank you. We will contact you shortly.", "success");
-
-        if (typeof grecaptcha !== "undefined") {
-          grecaptcha.reset();
-        }
       })
       .catch(function (error) {
         setMessage(error.message, "error");
-
-        if (typeof grecaptcha !== "undefined") {
-          grecaptcha.reset();
-        }
       })
       .finally(function () {
         if (submitButton) {
