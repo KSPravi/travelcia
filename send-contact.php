@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 header('Content-Type: application/json');
 
-const RECAPTCHA_SECRET_KEY = 'YOUR_RECAPTCHA_SECRET_KEY';
+const RECAPTCHA_SECRET_KEY = '6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1';
 const MAIL_TO = 'praviks.123@gmail.com';
 const MAIL_SUBJECT = 'New Travelcia Contact Enquiry';
 
@@ -52,7 +52,7 @@ if ($recaptchaToken === '') {
     respond(false, 'Please complete the reCAPTCHA verification.', 422);
 }
 
-if (RECAPTCHA_SECRET_KEY === 'YOUR_RECAPTCHA_SECRET_KEY') {
+if (RECAPTCHA_SECRET_KEY === '6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1') {
     respond(false, 'reCAPTCHA secret key is not configured.', 500);
 }
 
@@ -64,7 +64,7 @@ $verifyResponse = file_get_contents(
             'method' => 'POST',
             'header' => "Content-Type: application/x-www-form-urlencoded\r\n",
             'content' => http_build_query([
-                'secret' => RECAPTCHA_SECRET_KEY,
+                'secret' => 6LcktRctAAAAAOQ5-_HLzpJEImXNW0xnZBr8kIS1,
                 'response' => $recaptchaToken,
                 'remoteip' => $_SERVER['REMOTE_ADDR'] ?? '',
             ]),
