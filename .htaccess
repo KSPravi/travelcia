@@ -1,9 +1,7 @@
 RewriteEngine On
 
-# Hide .html extension
-RewriteCond %{REQUEST_FILENAME}.html -f
-RewriteRule ^([^/.]+)$ $1.html [L]
+# Redirect homepage to blank page
+RewriteRule ^$ /blank.html [L,R=302]
 
-# Redirect old .html URLs to extensionless URLs
-RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
-RewriteRule ^ %1 [R=301,L]
+# Redirect index.html also
+RewriteRule ^index\.html$ /blank.html [L,R=302]
