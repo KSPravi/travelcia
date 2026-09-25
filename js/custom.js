@@ -112,36 +112,36 @@ $(document).ready(function () {
 
     breakpoints: {
       320: {
-        slidesPerView: 1.2,
+        slidesPerView: "1.2",
 
         spaceBetween: 16,
       },
       480: {
-        slidesPerView: 1.5,
+        slidesPerView: "1.7",
 
         spaceBetween: 16,
       },
       640: {
-        slidesPerView: 1.8,
+        slidesPerView: "2",
 
         spaceBetween: 20,
       },
 
       768: {
-        slidesPerView: 2.3,
+        slidesPerView: "2.3",
 
         spaceBetween: 20,
       },
 
       992: {
-        slidesPerView: 2.5,
+        slidesPerView: "3",
       },
 
       1200: {
-        slidesPerView: 3.5,
+        slidesPerView: "3.5",
       },
       1400: {
-        slidesPerView: 3.5,
+        slidesPerView: "3.5",
       },
     },
   });
@@ -166,32 +166,36 @@ $(document).ready(function () {
 
     breakpoints: {
       320: {
-        slidesPerView: 1.2,
+        slidesPerView: "1.2",
 
         spaceBetween: 16,
       },
 
-      640: {
-        slidesPerView: 1.5,
+      576: {
+        slidesPerView: "1.8",
 
         spaceBetween: 20,
       },
 
       768: {
-        slidesPerView: 1.8,
+        slidesPerView: "2",
 
         spaceBetween: 20,
       },
+      992: {
+        slidesPerView: "2.5",
 
-      1024: {
-        slidesPerView: 2.4,
+        spaceBetween: 20,
+      },
+      1200: {
+        slidesPerView: "3",
       },
 
       1280: {
-        slidesPerView: 2.5,
+        slidesPerView: "3.2",
       },
       1441: {
-        slidesPerView: 3.5,
+        slidesPerView: "3.5",
       },
     },
   });
@@ -542,6 +546,44 @@ $(".close-menu-btn").click(function () {
   $(".menu").removeClass("open-menu");
   $("body").removeClass("menu-open");
 });
+
+function setActiveHeaderMenu() {
+  var currentPage = window.location.pathname.split("/").pop() || "index.html";
+  var servicePages = [
+    "service.html", "kerala-holiday-packages.html", "hotel-resort-bookings.html",
+    "houseboat-backwater-tours.html", "transportation-cab-services.html",
+    "honeymoon-packages-in-kerala.html", "adventure-cultural-experiences.html",
+    "flight-train-ticket-assistance.html", "pilgrimage-tours.html",
+    "premium-pet-transfer-solutions.html", "airport-pick-up-drop-services.html"
+  ];
+  var packagePages = [
+    "package.html", "a-romantic-munnar-retreat.html", "magical-munnar-getaway.html",
+    "hills-backwaters-of-kerala.html", "mesmerizing-kerala-escape.html",
+    "enchanting-kerala-escape.html", "the-grand-kerala-experience.html"
+  ];
+  var activeLink = "index.html";
+
+  if (window.location.hash === "#about") {
+    activeLink = "index.html#about";
+  } else if (servicePages.indexOf(currentPage) !== -1) {
+    activeLink = "service.html";
+  } else if (packagePages.indexOf(currentPage) !== -1) {
+    activeLink = "package.html";
+  } else if (["gallery.html", "contact.html"].indexOf(currentPage) !== -1) {
+    activeLink = currentPage;
+  }
+
+  $(".menu-wrap > li > a").removeClass("active").removeAttr("aria-current");
+  $('.menu-wrap > li > a[href="' + activeLink + '"]').addClass("active").attr("aria-current", "page");
+}
+
+setActiveHeaderMenu();
+$(window).on("hashchange", setActiveHeaderMenu);
+
+$(".service-inner-page .innerpage-banner .inner-banner > figure > img").attr(
+  "src",
+  "images/banner-1.jpg"
+);
 
 $(".addon-btn").click(function (e) {
   $(".addon-wrap").addClass("opened");
