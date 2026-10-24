@@ -24,9 +24,7 @@ body {
     overflow: hidden;
   }
 }
-* {
-  text-wrap: balance;
-}
+
 .btn-wrap {
   display: flex;
 
@@ -76,23 +74,6 @@ h2 {
   font-size: 60px;
   color: $primary-color;
   margin-bottom: 30px;
-  @media (width<=1199px) {
-    font-size: 50px;
-  }
-  // @media (width<=991px) {
-  //   font-size: 50px;
-  // }
-  // @media (width<=799px) {
-  //   font-size: 50px;
-  // }
-
-  @media (width<=575px) {
-    font-size: 30px;
-  }
-
-  @media (width<=480px) {
-    font-size: 30px;
-  }
 }
 
 h3 {
@@ -820,13 +801,15 @@ header {
             display: flex;
             justify-content: space-between;
             z-index: 1;
+            align-items: flex-end;
             @media (width<=991px) {
               flex-direction: column;
+              align-items: flex-start;
             }
             @media (width<=575px) {
               left: 20px;
               right: 20px;
-              bottom: 40px;
+              bottom: 20px;
             }
             h1,
             .h1 {
@@ -877,6 +860,7 @@ header {
                 @media (width<=575px) {
                   flex-direction: column;
                   row-gap: 10px;
+                  margin-top: 20px;
                 }
                 span {
                   background-color: #fff;
@@ -1072,12 +1056,15 @@ header {
     }
     h2 {
       margin-bottom: 20px;
+      @media (width<=575px) {
+        margin-bottom: 10px;
+      }
     }
     small {
       margin-bottom: 20px;
       font-size: 20px;
       @media (width<=575px) {
-        font-size: 18px;
+        font-size: 16px;
         margin-bottom: 10px;
       }
     }
@@ -1208,6 +1195,7 @@ header {
     justify-content: space-between;
     align-items: flex-end;
     margin-bottom: 30px;
+    gap: 30px;
     @media (width<=1199px) {
       padding-right: 6rem;
     }
@@ -1236,11 +1224,11 @@ header {
       h2 {
         margin-bottom: 10px;
         @media (width<=799px) {
-          font-size: 40px !important;
           margin-bottom: 20px;
         }
-        @media (width<=799px) {
-          font-size: 30px !important;
+        @media (width<=575px) {
+        }
+        @media (width<=480px) {
         }
       }
       small {
@@ -1695,11 +1683,9 @@ header {
         color: #fff;
         font-size: 40px;
         @media (width<=799px) {
-          font-size: 40px !important;
           margin-bottom: 20px;
         }
         @media (width<=575px) {
-          font-size: 30px !important;
         }
       }
 
@@ -1815,19 +1801,14 @@ header {
 
   .wrap {
     width: 100%;
-    padding-right: 7.5rem;
     margin-top: 50px;
     display: flex;
     justify-content: center;
     align-items: center;
     @media (width<=1199px) {
-      padding-right: 6rem;
-    }
-    @media (width<=799px) {
-      padding-right: 4rem;
+      padding-right: 0 !important;
     }
     @media (width<=575px) {
-      padding-right: 20px;
       margin-top: 30px;
     }
     .swiper-button-prev {
@@ -2869,11 +2850,7 @@ h5.under {
       h2 {
         margin-bottom: 10px;
         @media (width<=799px) {
-          font-size: 40px !important;
           margin-bottom: 20px;
-        }
-        @media (width<=575px) {
-          font-size: 30px !important;
         }
       }
       small {
@@ -3007,12 +2984,17 @@ h5.under {
         }
       }
     }
+    .wrap {
+      @media (width <= 1199px) {
+        padding-right: 0 !important;
+      }
+    }
   }
 }
 .swiper-container {
   .wrap {
     width: 500px;
-    padding-right: 0;
+    padding-right: 7.5rem;
     margin-top: 50px;
     display: flex;
     justify-content: center;
@@ -3020,13 +3002,13 @@ h5.under {
     margin-right: auto;
     margin-left: auto;
     @media (width<=1199px) {
-      padding-right: 0;
+      padding-right: 6rem;
     }
     @media (width<=799px) {
-      padding-right: 0;
+      padding-right: 4rem;
     }
     @media (width<=575px) {
-      padding-right: 0;
+      padding-right: 20px;
       margin-top: 30px;
       width: 100%;
     }
@@ -3456,6 +3438,9 @@ h5.under {
     margin: 0 auto;
     max-width: 1000px;
     text-align: center;
+    h2 {
+      text-wrap: balance;
+    }
   }
 
   .row {
@@ -3477,15 +3462,15 @@ h5.under {
     &.gallery-grid {
       h2 {
         font-weight: $bold;
-        font-size: 35px;
+        font-size: 35px !important;
         line-height: 1.2;
         margin-bottom: 40px;
         @media (width<=1199px) {
-          font-size: 30px;
+          font-size: 30px !important;
           line-height: 1.2 !important;
         }
         @media (width<=480px) {
-          font-size: 20px;
+          font-size: 20px !important;
           margin-bottom: 20px;
           line-height: 1.2 !important;
         }
@@ -3552,13 +3537,13 @@ h5.under {
     align-items: flex-start;
     h2,
     h4 {
-      font-size: 35px;
+      font-size: 35px !important;
       margin-bottom: 20px;
       font-weight: $bold;
       color: $primary-color;
 
       @media (width<=1199px) {
-        font-size: 30px;
+        font-size: 30px !important;
         line-height: 1.2 !important;
       }
 
@@ -4090,6 +4075,24 @@ a {
       display: block;
       font-size: 18px;
     }
+  }
+}
+
+// Keep every page heading on the same responsive scale.
+h2,
+.h2 {
+  font-size: 60px !important;
+
+  @media (width<=991px) {
+    font-size: 50px !important;
+  }
+
+  @media (width<=799px) {
+    font-size: 40px !important;
+  }
+
+  @media (width<=575px) {
+    font-size: 30px !important;
   }
 }
 
