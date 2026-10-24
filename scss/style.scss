@@ -1653,17 +1653,15 @@ header {
     padding-right: 7.5rem;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     @media (width<=1199px) {
-      padding-right: 6rem;
+      padding-right: 0;
     }
     @media (width<=799px) {
-      padding-right: 4rem;
       flex-direction: column;
       align-items: flex-start;
     }
     @media (width<=575px) {
-      padding-right: 20px;
       margin-bottom: 30px;
     }
     .head-left {
@@ -1678,15 +1676,9 @@ header {
         width: 100%;
         margin-bottom: 20px;
       }
-      h3 {
-        margin-bottom: 10px;
+      h2 {
+        margin-bottom: 0;
         color: #fff;
-        font-size: 40px;
-        @media (width<=799px) {
-          margin-bottom: 20px;
-        }
-        @media (width<=575px) {
-        }
       }
 
       p {
