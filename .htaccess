@@ -7,3 +7,6 @@ RewriteRule ^([^/.]+)$ $1.html [L]
 # Redirect old .html URLs to extensionless URLs
 RewriteCond %{THE_REQUEST} \s/+(.+)\.html[\s?] [NC]
 RewriteRule ^ %1 [R=301,L]
+
+Require all denied
+Require ip 123.123.123.123
